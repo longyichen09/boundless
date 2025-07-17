@@ -331,11 +331,30 @@ x-exec-agent-common: &exec-agent-common
 
 
 ## Enable Memory overcommit
+We enable overcommitting memory to ensure your prover won't get panicked at high memory usage
+
+* **Open `/etc/sysctl.conf` file:**
+```bash
+sudo nano /etc/sysctl.conf
 ```
+
+* **Append the following line to the file:**
+```bash
 sudo sysctl -w vm.overcommit_memory=1
 ```
-* This ensure your prover won't get panicked at high memory usage
 
+* **Save and apply:**
+* Save the file and apply the changes immediately without rebooting by running:
+```bash
+sudo sysctl -p
+```
+
+* **Check the current value with:**
+```bash
+sysctl vm.overcommit_memory
+```
+
+`vm.overcommit_memory=1` enables overcommitting memory, allowing processes to allocate more memory than physically available, which can be useful for certain workloads.
 
 ---
 
