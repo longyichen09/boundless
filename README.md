@@ -340,7 +340,7 @@ sudo nano /etc/sysctl.conf
 
 * **Append the following line to the file:**
 ```bash
-sudo sysctl -w vm.overcommit_memory=1
+vm.overcommit_memory=1
 ```
 
 * **Save and apply:**
