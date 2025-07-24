@@ -242,7 +242,20 @@ install_basic_deps() {
     success "Basic dependencies installed"
 }
 
-
+# Install GPU drivers
+install_gpu_drivers() {
+    info "Installing GPU drivers..."
+    if ! check_dpkg_status; then
+        exit $EXIT_DPKG_ERROR
+    fi
+    {
+        if ! ubuntu-drivers install 2>&1; then
+            error "Failed to install GPU drivers"
+            exit $EXIT_GPU_ERROR
+        fi
+    } >> "$LOG_FILE" 2>&1
+    success "GPU drivers installed"
+}
 # Install Docker
 install_docker() {
     if command_exists docker; then
@@ -1742,6 +1755,7 @@ main() {
     update_system
     info "Installing all dependencies..."
     install_basic_deps
+    Install GPU drivers
     install_docker
     install_nvidia_toolkit
     install_rust
